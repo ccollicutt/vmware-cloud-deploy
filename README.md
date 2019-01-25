@@ -3,8 +3,8 @@
 
 ### Dependencies:
 
-genisoimage - Widely available, install from your distros package manager
-ovftool - VMWare OVFTool - Get this from VMWare
+genisoimage - Widely available, install from your distros package manager  
+ovftool - VMWare OVFTool - Get this from VMWare  
 cot - Common OVF Tool - Get this from https://github.com/glennmatthews/cot
 
 ### What it does:
