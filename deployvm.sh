@@ -11,7 +11,7 @@ function print_help {
   echo "  -user,--userdata=<user-data file> - required - The user-data file for cloudinit"
   echo "  -name,--name=<instance name>      - optional - The name the instance will be given in VMWare"
   echo "  -server,--server=<IP or hostname> - optional - ESXi Server IP or hostname"
-  echo "  -user,--username=<username>       - optional - ESXi Username"
+  echo "  -username,--username=<username>   - optional - ESXi Username"
   echo "  -pass,--password=<password>       - optional - ESXi Password"
 }
 
@@ -63,7 +63,7 @@ case $i in
   shift # past argument=value
   ;;
   -username=*|--username=*)
-  USER="${i#*=}"
+  VUSER="${i#*=}"
   shift # past argument=value
   ;;
   -pass=*|--password=*)
@@ -85,12 +85,14 @@ check_arg "$USER_DATA" "The meta-data file must be specified"
 check_arg "$SERVER" "The server must be specified"
 
 # Build necessary args from options
-if [ ! -z "$USER" ] || [ ! -z "$PASS" ]; then
-  CREDS="${USER}:${PASS}@"
+if [ ! -z "$VUSER" ] || [ ! -z "$PASS" ]; then
+  CREDS="${VUSER}:${PASS}@"
 fi
 if [ -z "$INSTANCE_NAME" ]; then
   filename=$(basename -- "$IN_OVA")
   INSTANCE_NAME="${filename%.*}"-`date +%s%3N`.ova
+else
+  INSTANCE_NAME=${INSTANCE_NAME}.ova
 fi  
 
 # Check for tools that we need
@@ -98,6 +100,7 @@ check_tool "genisoimage" "${GENISO_CHECK_CMD}"
 check_tool "VMWare OVF Tool (ovftool)" "${OVFTOOL_CHECK_CMD}"
 check_tool "Common OVF Tool (cot)" "${COT_CHECK_CMD}"
 
+set -x
 # Make the ISO
 genisoimage -output ${SEED_ISO_PATH} -volid cidata -joliet -rock ${USER_DATA} ${META_DATA}
 
