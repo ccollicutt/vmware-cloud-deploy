@@ -1,0 +1,11 @@
+#cloud-config
+password: changeit
+ssh_pwauth: True
+users:
+  - default
+  - name: someuser
+    gecos: Foo Bar
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    ssh-authorized-keys:
+      - ssh-rsa <some ssh key> 
