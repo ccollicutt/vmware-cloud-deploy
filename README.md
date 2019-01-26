@@ -1,6 +1,6 @@
 # vmware-cloud-deploy
 
-Deploy OVA images using cloudinit to a VMWare ESXi instance. This is purely a script tying together other components, but I had to do a bit of digging and trial and error to get this working so here it is for everyone.  
+Deploy OVA images using cloudinit to a VMWare ESXi instance. This is purely a script tying together other components, but I had to do a bit of digging online and trial and error to get this working so here it is for everyone.  
 
 Tested with:
 - VMWare ESXi 6.7.0
